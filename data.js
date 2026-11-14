@@ -11,7 +11,7 @@ window.HUB = {
       id: "chess-open-s1", game: "chess", name: "Aero Chess Open", season: "Season 1",
       status: "completed",              // upcoming | live | completed
       date: "Sep 30 onwards",
-      winner: "WINNER NAME",            // <- put the champion's name
+      winner: "",                       // leave empty to use the winner from the Google Sheet (Settings tab)
       runnerUp: "",                     // optional
       url: "https://lkritheesh.github.io/aero-chess-open/", // existing site
       sheetId: "1TU7oxekoErJuN9eIZFujQTNRbCMAqBky-p-3WysGTpk" // winner/runnerUp can also come from the Settings tab
