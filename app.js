@@ -1,6 +1,6 @@
 const H=window.HUB,$=document.getElementById('app'),C=document.getElementById('crumbs');
 const e=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const tcard=t=>`<a class="card" href="#/t/${e(t.id)}"><span class="tag ${e(t.status)}">${e(t.status)}</span>
+const tcard=t=>`<a class="card" href="${t.url?e(t.url):'#/t/'+e(t.id)}"><span class="tag ${e(t.status)}">${e(t.status)}</span>
 <p><b>${e(t.name)} · ${e(t.season)}</b></p><p>${e(t.date)}${t.status=='completed'&&t.winner?' · 🏆 '+e(t.winner):''}</p></a>`;
 const champ=t=>t.status=='completed'&&t.winner?`<div class="card champ"><div class="ico">🏆</div><div><div>Champion</div><strong>${e(t.winner)}</strong>${t.runnerUp?`<div>Runner-up: ${e(t.runnerUp)}</div>`:''}</div></div>`:'';
 function home(){C.innerHTML='';
