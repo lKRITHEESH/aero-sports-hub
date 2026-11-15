@@ -1,21 +1,34 @@
-// ===== EDIT ONLY THIS FILE to add games & tournaments =====
+// ===== EDIT ONLY THIS FILE to change the site =====
 window.HUB = {
-  org: { name: "Aero Sports Club", tagline: "Friendly competitions for 3rd Year Aerospace Engineering. Pick a game, join a tournament, watch the table." },
+  org: {
+    name: "Aero Games Hub",
+    about: "Aero Games Hub is the home of every game and tournament run by the 3rd Year Aerospace Engineering class. Pick a tournament, check who plays whom, follow the live table and see who takes the crown.",
+    sub: "Open to everyone: experienced players, beginners and anyone who just wants a break from class. Registration is small, the rivalry is big."
+  },
+  // Games used for the filter chips
   games: [
-    { id: "chess", name: "Chess", icon: "♞", blurb: "Rapid boards, 10 minutes a side." },
-    { id: "carrom", name: "Carrom", icon: "◎", blurb: "Coming soon." }
-    // { id: "tt", name: "Table Tennis", icon: "🏓", blurb: "..." }
+    { id: "chess", name: "Chess", icon: "♞" },
+    { id: "carrom", name: "Carrom", icon: "◎" }
+  ],
+  // Next event banner (set to null to hide)
+  next: { title: "Next tournament coming soon", text: "Want your game here? Tell the organisers and we will set it up.", label: "Suggest a game", url: "mailto:you@example.com" },
+  // Photos: put image files in a folder called photos/ in this repo
+  photos: [
+    { src: "photos/1.jpg", caption: "Round 1" },
+    { src: "photos/2.jpg", caption: "Game face on" },
+    { src: "photos/3.jpg", caption: "The final" },
+    { src: "photos/4.jpg", caption: "Prize time" }
   ],
   tournaments: [
     {
       id: "chess-open-s1", game: "chess", name: "Aero Chess Open", season: "Season 1",
-      status: "completed",              // upcoming | live | completed
+      status: "completed",               // upcoming | live | completed
       date: "Sep 30 onwards",
-      winner: "",                       // leave empty to use the winner from the Google Sheet (Settings tab)
-      runnerUp: "",                     // optional
-      url: "https://lkritheesh.github.io/aero-chess-open/", // existing site
-      sheetId: "1TU7oxekoErJuN9eIZFujQTNRbCMAqBky-p-3WysGTpk" // winner/runnerUp can also come from the Settings tab
+      poster: "",                        // optional poster image, e.g. "photos/chess-poster.jpg"
+      winner: "",                        // leave empty to read from the Google Sheet (Settings tab)
+      runnerUp: "",
+      url: "https://lkritheesh.github.io/aero-chess-open/",
+      sheetId: "1TU7oxekoErJuN9eIZFujQTNRbCMAqBky-p-3WysGTpk"
     }
-    // New tournament with NO separate site: fill sheetId and leave url "".
   ]
 };
