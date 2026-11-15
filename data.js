@@ -17,8 +17,8 @@ window.HUB = {
   photos: [
     { src: "photos/1.jpeg", caption: "Round 1" },
     { src: "photos/2.jpeg", caption: "Game face on" },
-    { src: "photos/3.jpg", caption: "The final" },
-    { src: "photos/4.jpg", caption: "Prize time" }
+    { src: "photos/3.jpeg", caption: "The final" },
+    { src: "photos/4.jpeg", caption: "Prize time" }
   ],
   tournaments: [
     {
