@@ -1,38 +1,46 @@
-const H=window.HUB,$=document.getElementById('app'),C=document.getElementById('crumbs');
+const H=window.HUB,$=document.getElementById('app');let filter='all';
 const e=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const tcard=t=>`<a class="card" href="${t.url?e(t.url):'#/t/'+e(t.id)}"><span class="tag ${e(t.status)}">${e(t.status)}</span>
-<p><b>${e(t.name)} · ${e(t.season)}</b></p><p>${e(t.date)}${t.status=='completed'&&t.winner?' · 🏆 '+e(t.winner):''}</p></a>`;
-const champ=t=>t.status=='completed'&&t.winner?`<div class="card champ"><div class="ico">🏆</div><div><div>Champion</div><strong>${e(t.winner)}</strong>${t.runnerUp?`<div>Runner-up: ${e(t.runnerUp)}</div>`:''}</div></div>`:'';
-function home(){C.innerHTML='';
- $.innerHTML=`<h1>${e(H.org.name)}</h1><p class="lead">${e(H.org.tagline)}</p><h2>Games</h2><div class="grid">`+
- H.games.map(g=>{const n=H.tournaments.filter(t=>t.game==g.id).length;
- return `<a class="card" href="#/g/${e(g.id)}"><div class="ico">${e(g.icon)}</div><b>${e(g.name)}</b><p>${e(g.blurb)}</p><p>${n} tournament${n==1?'':'s'}</p></a>`}).join('')+`</div>`+
- `<h2>Latest</h2><div class="grid">`+H.tournaments.slice().reverse().slice(0,4).map(tcard).join('')+`</div>`}
-function game(id){const g=H.games.find(x=>x.id==id);if(!g)return home();
- C.innerHTML=`<a href="#/">All games</a>`;const ts=H.tournaments.filter(t=>t.game==id);
- $.innerHTML=`<h1>${e(g.icon)} ${e(g.name)}</h1><p class="lead">${e(g.blurb)}</p><h2>Tournaments</h2><div class="grid">`+
- (ts.length?ts.slice().reverse().map(tcard).join(''):'<p class="lead">No tournaments yet.</p>')+`</div>`}
+const gm=id=>H.games.find(g=>g.id==id)||{name:id,icon:'★'};
+const poster=t=>`<a class="poster" href="${t.url?e(t.url):'#/t/'+e(t.id)}">${t.poster?`<img src="${e(t.poster)}" alt="" onerror="this.remove()">`:''}
+<span class="tag">${e(t.status)}</span><div>${t.poster?'':`<div class="big">${e(gm(t.game).icon)}</div>`}<h3>${e(t.name)}<br>${e(t.season)}</h3><p>${e(t.date)}</p>
+${t.status=='completed'&&t.winner?`<span class="win">🏆 ${e(t.winner)}</span>`:''}<div class="go">View tournament →</div></div></a>`;
+function grid(){const ts=H.tournaments.filter(t=>filter=='all'||t.game==filter).slice().reverse();
+ document.getElementById('posters').innerHTML=ts.map(poster).join('')+`<div class="poster soon"><div><div class="big">+</div><h3>More coming</h3><p>New games soon</p></div></div>`;
+ document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c.dataset.f==filter))}
+function home(){const T=H.tournaments;
+ $.innerHTML=`<section id="about"><div class="about"><div><span class="hl">About</span><p>${e(H.org.about)}</p><p class="sub">${e(H.org.sub)}</p></div>
+ <div class="stats"><div class="stat"><b>${T.length}</b><span>TOURNAMENTS</span></div><div class="stat"><b>${H.games.length}</b><span>GAMES</span></div>
+ <div class="stat"><b>${T.filter(t=>t.status=='completed').length}</b><span>COMPLETED</span></div><div class="stat"><b>${T.filter(t=>t.status!='completed').length}</b><span>UPCOMING / LIVE</span></div></div></div></section>
+ <section id="gallery"><div class="bar"><span class="hl">Gallery</span><div class="arrows"><button aria-label="Previous" data-d="-1">←</button><button aria-label="Next" data-d="1">→</button></div></div>
+ <div class="reel" id="reel">${H.photos.map((p,i)=>`<figure><span class="n">${i+1}</span><img src="${e(p.src)}" alt="${e(p.caption)}" loading="lazy" onerror="this.remove()"><figcaption>${e(p.caption)}</figcaption></figure>`).join('')}</div></section>
+ <section id="tournaments"><span class="hl">All Tournaments</span><div class="chips"><button class="chip" data-f="all">All</button>${H.games.map(g=>`<button class="chip" data-f="${e(g.id)}">${e(g.icon)} ${e(g.name)}</button>`).join('')}</div><div class="posters" id="posters"></div></section>
+ ${H.next?`<div class="cta"><div><h3>${e(H.next.title)}</h3><p>${e(H.next.text)}</p></div><a class="btn" href="${e(H.next.url)}">${e(H.next.label)}</a></div>`:''}`;
+ grid();
+ $.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{filter=c.dataset.f;grid()});
+ const r=document.getElementById('reel');$.querySelectorAll('.arrows button').forEach(b=>b.onclick=()=>r.scrollBy({left:b.dataset.d*340,behavior:'smooth'}));
+ let d=0,x=0,s=0;r.onmousedown=ev=>{d=1;x=ev.pageX;s=r.scrollLeft};addEventListener('mouseup',()=>d=0);r.onmousemove=ev=>{if(d)r.scrollLeft=s-(ev.pageX-x)};
+ const id=location.hash.slice(1);if(id&&document.getElementById(id))document.getElementById(id).scrollIntoView()}
 async function sheet(id,name){const r=await fetch(`https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:json&sheet=${name}`);
  const x=await r.text(),j=JSON.parse(x.slice(x.indexOf('{'),x.lastIndexOf('}')+1));
  const val=c=>c?(c.f??c.v??''):'';let cols=j.table.cols.map(c=>(c.label||'').trim()),rows=j.table.rows||[];
  if(cols.every(c=>!c)&&rows.length){cols=rows[0].c.map(c=>String(val(c)).trim());rows=rows.slice(1)}
  return rows.map(r=>Object.fromEntries(cols.map((c,i)=>[c||'col'+i,val(r.c[i])]))).filter(o=>Object.values(o).some(v=>String(v).trim()))}
 function standings(ps,ms){const s={};ps.forEach(p=>s[p.name]={n:p.name,p:0,w:0,d:0,l:0,pts:0});
- ms.forEach(m=>{const a=s[m.player1],b=s[m.player2],r=String(m.result).trim();if(!a||!b)return;
-  if(r=='P1'){a.w++;b.l++;a.pts++}else if(r=='P2'){b.w++;a.l++;b.pts++}else if(r.toLowerCase()=='draw'){a.d++;b.d++;a.pts+=.5;b.pts+=.5}else return;a.p++;b.p++});
+ ms.forEach(m=>{const a=s[m.player1],b=s[m.player2],r=String(m.result).trim().toLowerCase();if(!a||!b)return;
+  if(r=='p1'){a.w++;b.l++;a.pts++}else if(r=='p2'){b.w++;a.l++;b.pts++}else if(r=='draw'){a.d++;b.d++;a.pts+=.5;b.pts+=.5}else return;a.p++;b.p++});
  return Object.values(s).sort((x,y)=>y.pts-x.pts||y.w-x.w)}
+const champ=t=>t.winner?`<div class="champ"><div style="font-size:52px">🏆</div><div>Champion<strong>${e(t.winner)}</strong>${t.runnerUp?`<div>Runner-up: ${e(t.runnerUp)}</div>`:''}</div></div>`:'';
 async function tour(id){const t=H.tournaments.find(x=>x.id==id);if(!t)return home();
- const g=H.games.find(x=>x.id==t.game);C.innerHTML=`<a href="#/">All games</a><a href="#/g/${e(t.game)}">${e(g?.name)}</a>`;
- $.innerHTML=`<h1>${e(t.name)}</h1><p class="lead">${e(t.season)} · ${e(t.date)} · <span class="${e(t.status)}">${e(t.status)}</span></p>
- ${t.url?`<a class="btn" href="${e(t.url)}">Open full tournament site</a>`:''}<div id="champSlot">${champ(t)}</div><div id="live"></div>`;
- if(!t.sheetId)return;const L=document.getElementById('live');L.innerHTML='<p class="lead">Loading…</p>';
+ $.innerHTML=`<a class="crumb" href="#tournaments">← All tournaments</a><span class="hl" style="display:block;width:fit-content">${e(t.name)}</span><p class="mono">${e(t.season)} · ${e(t.date)} · ${e(t.status)}</p>
+ <div id="champSlot">${champ(t)}</div>${t.url?`<a class="btn" href="${e(t.url)}">Open full tournament site</a>`:''}<div id="live"></div>`;
+ if(!t.sheetId)return;const L=document.getElementById('live');L.innerHTML='<p>Loading…</p>';
  try{const [ps,ms,st]=await Promise.all([sheet(t.sheetId,'Players'),sheet(t.sheetId,'Matches'),sheet(t.sheetId,'Settings').catch(()=>[])]);
   const cfg={};st.forEach(r=>{const k=Object.keys(r);if(r[k[0]])cfg[String(r[k[0]]).trim()]=r[k[1]]});
-  if(cfg.winner&&!t.winner){t.winner=cfg.winner;t.runnerUp=cfg.runnerUp;t.status='completed';document.getElementById('champSlot').innerHTML=champ(t)}
-  L.innerHTML=`<h2>Standings</h2><div class="wrap"><table><tr><th>#</th><th>Player</th><th>P</th><th>W</th><th>D</th><th>L</th><th>Pts</th></tr>`+
+  if(cfg.winner&&!t.winner){t.winner=cfg.winner;t.runnerUp=cfg.runnerUp;document.getElementById('champSlot').innerHTML=champ(t)}
+  L.innerHTML=`<h2 class="hl" style="margin-top:28px">Standings</h2><div class="wrap"><table><tr><th>#</th><th>Player</th><th>P</th><th>W</th><th>D</th><th>L</th><th>Pts</th></tr>`+
   standings(ps,ms).map((r,i)=>`<tr><td>${i+1}</td><td>${e(r.n)}</td><td>${r.p}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td><td><b>${r.pts}</b></td></tr>`).join('')+`</table></div>
-  <h2>Matches</h2><div class="wrap"><table><tr><th>Round</th><th>Match</th><th>When</th><th>Result</th></tr>`+
+  <h2 class="hl">Matches</h2><div class="wrap"><table><tr><th>Round</th><th>Match</th><th>When</th><th>Result</th></tr>`+
   ms.map(m=>`<tr><td>${e(m.round)}</td><td>${e(m.player1)} vs ${e(m.player2)}</td><td>${e(m.date)} ${e(m.time)}</td><td>${e(m.result)}</td></tr>`).join('')+`</table></div>`
- }catch(_){L.innerHTML='<p class="lead">Could not load the sheet. Check it is shared as "Anyone with the link can view" and has Players and Matches tabs.</p>'}}
-function route(){const [,k,v]=location.hash.split('/');k=='g'?game(v):k=='t'?tour(v):home();scrollTo(0,0)}
+ }catch(_){L.innerHTML='<p>Could not load the sheet. Check it is shared as "Anyone with the link can view".</p>'}}
+function route(){const h=location.hash;if(h.startsWith('#/t/')){tour(h.slice(4));scrollTo(0,0)}else if(!document.getElementById('reel')){home()}else{const el=document.getElementById(h.slice(1));el&&el.scrollIntoView()}}
 addEventListener('hashchange',route);route();
