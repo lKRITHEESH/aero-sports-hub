@@ -1,9 +1,9 @@
 const H=window.HUB,$=document.getElementById('app');let filter='all';
 const e=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const gm=id=>H.games.find(g=>g.id==id)||{name:id,icon:'★'};
-const poster=t=>`<a class="poster" href="${t.url?e(t.url):'#/t/'+e(t.id)}">${t.poster?`<img src="${e(t.poster)}" alt="" onerror="this.remove()">`:''}
-<span class="tag">${e(t.status)}</span><div>${t.poster?'':`<div class="big">${e(gm(t.game).icon)}</div>`}<h3>${e(t.name)}<br>${e(t.season)}</h3><p>${e(t.date)}</p>
-${t.status=='completed'&&t.winner?`<span class="win">🏆 ${e(t.winner)}</span>`:''}<div class="go">View tournament →</div></div></a>`;
+const poster=t=>{const href=t.url?e(t.url):'#/t/'+e(t.id);
+ if(t.poster)return `<a class="poster has" href="${href}"><img src="${e(t.poster)}" alt="${e(t.name)} ${e(t.season)} poster"><span class="tag">${e(t.status)}</span><div class="cap"><b>${e(t.name)} · ${e(t.season)}</b>${t.status=='completed'&&t.winner?`<span>🏆 ${e(t.winner)}</span>`:`<span>${e(t.date)}</span>`}</div></a>`;
+ return `<a class="poster" href="${href}"><span class="tag">${e(t.status)}</span><div><div class="big">${e(gm(t.game).icon)}</div><h3>${e(t.name)}<br>${e(t.season)}</h3><p>${e(t.date)}</p>${t.status=='completed'&&t.winner?`<span class="win">🏆 ${e(t.winner)}</span>`:''}<div class="go">View tournament →</div></div></a>`};
 function grid(){const ts=H.tournaments.filter(t=>filter=='all'||t.game==filter).slice().reverse();
  document.getElementById('posters').innerHTML=ts.map(poster).join('')+`<div class="poster soon"><div><div class="big">+</div><h3>More coming</h3><p>New games soon</p></div></div>`;
  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c.dataset.f==filter))}
@@ -32,7 +32,7 @@ function standings(ps,ms){const s={};ps.forEach(p=>s[p.name]={n:p.name,p:0,w:0,d
 const champ=t=>t.winner?`<div class="champ"><div style="font-size:52px">🏆</div><div>Champion<strong>${e(t.winner)}</strong>${t.runnerUp?`<div>Runner-up: ${e(t.runnerUp)}</div>`:''}</div></div>`:'';
 async function tour(id){const t=H.tournaments.find(x=>x.id==id);if(!t)return home();
  $.innerHTML=`<a class="crumb" href="#tournaments">← All tournaments</a><span class="hl" style="display:block;width:fit-content">${e(t.name)}</span><p class="mono">${e(t.season)} · ${e(t.date)} · ${e(t.status)}</p>
- <div id="champSlot">${champ(t)}</div>${t.url?`<a class="btn" href="${e(t.url)}">Open full tournament site</a>`:''}<div id="live"></div>`;
+ ${t.poster?`<img class="bigposter" src="${e(t.poster)}" alt="">`:''}${(t.details||[]).map(d=>`<p class="mono">${e(d)}</p>`).join('')}<div id="champSlot">${champ(t)}</div>${t.url?`<a class="btn" href="${e(t.url)}">Open full tournament site</a>`:''}<div id="live"></div>`;
  if(!t.sheetId)return;const L=document.getElementById('live');L.innerHTML='<p>Loading…</p>';
  try{const [ps,ms,st]=await Promise.all([sheet(t.sheetId,'Players'),sheet(t.sheetId,'Matches'),sheet(t.sheetId,'Settings').catch(()=>[])]);
   const cfg={};st.forEach(r=>{const k=Object.keys(r);if(r[k[0]])cfg[String(r[k[0]]).trim()]=r[k[1]]});
