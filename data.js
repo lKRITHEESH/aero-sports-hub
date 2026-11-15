@@ -18,17 +18,17 @@ window.HUB = {
     { src: "photos/1.jpeg", caption: "Round of 16" },
     { src: "photos/2.jpeg", caption: "Game face on" },
     { src: "photos/3.jpeg", caption: "Round of 16 Game 5" },
-    { src: "photos/4.jpeg", caption: "Openings by book" }
-    { src: "photos/5.jpeg", caption: "Time's ticking!" }
-    { src: "photos/6.jpeg", caption: "Patience Wins Games" }
-    { src: "photos/7.jpeg", caption: "Winner's prize!" }
-    { src: "photos/8.jpeg", caption: "Quarter Final!" }
-    { src: "photos/9.jpeg", caption: "Runner up's prize!" }
-    { src: "photos/10.jpeg", caption: "Semi Finals" }
-    { src: "photos/11.jpeg", caption: "Prize time (Runner up!)" }
-    { src: "photos/12.jpeg", caption: "Prize time (Winner!!)" }
-    { src: "photos/13.jpeg", caption: "Finals" }
-    { src: "photos/14.jpeg", caption: "Finals" }
+    { src: "photos/4.jpeg", caption: "Openings by book" },
+    { src: "photos/5.jpeg", caption: "Time's ticking!" },
+    { src: "photos/6.jpeg", caption: "Patience Wins Games" },
+    { src: "photos/7.jpeg", caption: "Winner's prize!" },
+    { src: "photos/8.jpeg", caption: "Quarter Final!" },
+    { src: "photos/9.jpeg", caption: "Runner up's prize!" },
+    { src: "photos/10.jpeg", caption: "Semi Finals" },
+    { src: "photos/11.jpeg", caption: "Prize time (Runner up!)" },
+    { src: "photos/12.jpeg", caption: "Prize time (Winner!!)" },
+    { src: "photos/13.jpeg", caption: "Finals" },
+    { src: "photos/14.jpeg", caption: "Finals" },
   ],
   tournaments: [
     {
