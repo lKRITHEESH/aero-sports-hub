@@ -15,8 +15,8 @@ window.HUB = {
   next: { title: "Next tournament coming soon", text: "Want your game here? Tell the organisers and we will set it up.", label: "Suggest a game", url: "mailto:businesschime1@gmail.com" },
   // Photos: put image files in a folder called photos/ in this repo
   photos: [
-    { src: "photos/1.jpg", caption: "Round 1" },
-    { src: "photos/2.jpg", caption: "Game face on" },
+    { src: "photos/1.jpeg", caption: "Round 1" },
+    { src: "photos/2.jpeg", caption: "Game face on" },
     { src: "photos/3.jpg", caption: "The final" },
     { src: "photos/4.jpg", caption: "Prize time" }
   ],
