@@ -98,3 +98,11 @@ The hub and the tournament page pick these up within a minute, with no code chan
 - **Changes not showing:** hard refresh (Ctrl+Shift+R). GitHub Pages can take a minute after a commit.
 - **Game page is empty:** the tournament's `game` value does not match the game's `id`.
 - Do not put phone numbers, bank or UPI details in a public sheet.
+
+## Photos and posters (v3 design)
+
+- Create a folder called `photos` in the repo and upload your tournament pictures (`1.jpg`, `2.jpg`, ...).
+- List them in `data.js` under `photos` with a caption. They appear in the horizontal Gallery strip (swipe, drag, or use the arrows).
+- To give a tournament a poster, upload the image to `photos/` and set `poster: "photos/chess-poster.jpg"` on it. Without one, a clean icon poster is generated.
+- The "About" text, the next-event banner and the game filter chips are also set in `data.js`.
+- After changing files, bump the `?v=3` number in `index.html` so browsers load the new version.
