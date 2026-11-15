@@ -2,7 +2,7 @@
 window.HUB = {
   org: {
     name: "Aero Games Hub",
-    about: "Aero Games Hub is the home of every game and tournament run by the 3rd Year Aerospace Engineering class. Pick a tournament, check who plays whom, follow the live table and see who takes the crown.",
+    about: "Aero Games Hub is the home of every game and tournament run by the Aero Games Organization. Main reason for the creation of these events are to integrate students in the class, take a break from all the stressful studies and just have fun. This hub is the gateway for all the organized tournaments. Pick a tournament, check who plays whom, follow the live table and see who takes the crown.",
     sub: "Open to everyone: experienced players, beginners and anyone who just wants a break from class. Registration is small, the rivalry is big."
   },
   // Games used for the filter chips (icon = emoji)
