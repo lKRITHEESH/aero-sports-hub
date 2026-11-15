@@ -34,3 +34,6 @@ footer{margin-top:64px;background:var(--ink);color:#bbb;display:flex;justify-con
 .wrap{overflow-x:auto;border:2px solid var(--ink);border-radius:16px;margin-bottom:24px}table{width:100%;border-collapse:collapse;min-width:520px}th,td{padding:11px 14px;text-align:left;border-bottom:1px solid #ddd;font-size:14px}th{background:var(--lime);font:12px 'Space Mono';text-transform:uppercase}
 :focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 @media(max-width:760px){.about{grid-template-columns:1fr}nav{gap:12px}.logo span{display:none}}
+.poster.has{padding:0;background:var(--ink)!important;aspect-ratio:3/4}.poster.has .tag{position:absolute;top:12px;left:12px;z-index:2}
+.cap{position:absolute;left:0;right:0;bottom:0;z-index:2;background:var(--lime);color:var(--ink);padding:10px 14px;display:flex;flex-direction:column;border-top:2px solid var(--ink)}.cap b{font-size:15px;line-height:1.25}.cap span{font:12px 'Space Mono'}
+.bigposter{display:block;max-width:min(100%,420px);border:2px solid var(--ink);border-radius:18px;box-shadow:0 5px 0 var(--ink);margin:0 0 20px}
