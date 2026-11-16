@@ -50,7 +50,7 @@ window.HUB = {
     },
     {
       id: "badminton-open", game: "badminton", name: "Aerospace Badminton Tournament", season: "Season 1",
-      status: "upcoming", date: "22 November",
+      status: "upcoming", date: "TBA",
       poster: "photos/badminton-poster.jpg",
       details: ["Venue: Synthetic Badminton Court, Behind Vasistha", "Badminton Support Coordinator: Viswanath K"],
       winner: "", runnerUp: "",
