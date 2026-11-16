@@ -50,10 +50,12 @@ window.HUB = {
     },
     {
       id: "badminton-open", game: "badminton", name: "Aerospace Badminton Tournament", season: "Season 1",
-      status: "upcoming", date: "Dates to be announced",
+      status: "upcoming", date: "22 November",
       poster: "photos/badminton-poster.jpg",
       details: ["Venue: Synthetic Badminton Court, Behind Vasistha", "Badminton Support Coordinator: Viswanath K"],
-      winner: "", runnerUp: "", url: "", sheetId: ""
+      winner: "", runnerUp: "",
+      url: "https://lkritheesh.github.io/aero-badminton-open/",
+      sheetId: ""
     },
     {
       id: "apex-cup", game: "racing", name: "The Apex Cup Grand Prix", season: "Season 1",
