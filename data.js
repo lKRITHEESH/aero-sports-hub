@@ -55,7 +55,7 @@ window.HUB = {
       details: ["Venue: Synthetic Badminton Court, Behind Vasistha", "Badminton Support Coordinator: Viswanath K"],
       winner: "", runnerUp: "",
       url: "https://lkritheesh.github.io/aero-badminton-open/",
-      sheetId: ""
+      sheetId: "1qPVsGHSQphinLdd4ydsIY9ovki3zz8sSppwHfnhz3fY"
     },
     {
       id: "apex-cup", game: "racing", name: "The Apex Cup Grand Prix", season: "Season 1",
