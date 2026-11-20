@@ -38,7 +38,7 @@ window.HUB = {
       poster: "",                        // optional poster image, e.g. "photos/chess-poster.jpg"
       winner: "",                        // leave empty to read from the Google Sheet (Settings tab)
       runnerUp: "",
-      url: "https://lkritheesh.github.io/aero-chess-open/",
+      url: "https://lkritheesh.github.io/aero-chess-open/?season=1",
       sheetId: "1TU7oxekoErJuN9eIZFujQTNRbCMAqBky-p-3WysGTpk"
     },
     {
@@ -46,7 +46,9 @@ window.HUB = {
       status: "upcoming", date: "Dates to be announced",
       poster: "photos/chess-s2-poster.jpg",
       details: ["Venue: Aero 3rd Year Classroom", "For 3rd Year Aero students"],
-      winner: "", runnerUp: "", url: "", sheetId: ""
+      winner: "", runnerUp: "",
+      url: "https://lkritheesh.github.io/aero-chess-open/",
+      sheetId: ""
     },
     {
       id: "badminton-open", game: "badminton", name: "Aerospace Badminton Tournament", season: "Season 1",
